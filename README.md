@@ -42,6 +42,10 @@ In AWS console for Simple Notification System, create a new topic, and subscribe
 
 Now, copy the ARN for the Topic, and enter it in the S3 Events settings under the Properties menu of your bucket. 
 
+# Set up Access Rights
+
+Follow the guidance at https://aws.amazon.com/premiumsupport/knowledge-center/elastic-beanstalk-s3-bucket-instance/ to authorize your Elastic Beanstalk application to read/write data to your s3 bucket.
+
 # Test the processing
 
 You can now process data. 
