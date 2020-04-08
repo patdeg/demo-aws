@@ -1,0 +1,18 @@
+.center {	    
+    text-align: center;
+}
+
+.body {
+	margin: 0;
+}
+
+table, th, td {
+      border: 1px solid black;
+}
+
+.thw {
+    border-top: solid white;
+    border-left: solid white;
+    border-right: solid white;
+}
+
