@@ -5,13 +5,13 @@ import (
 	"github.com/xitongsys/parquet-go/parquet"
 	"github.com/xitongsys/parquet-go/writer"
 	"os"
-	"path/filepath"	
+	"path/filepath"
 	"strconv"
 	"time"
 )
 
 /**************************************************************
-	Write a parquet file in s3://s3_bucket/s3_item from 
+	Write a parquet file in s3://s3_bucket/s3_item from
 	a DataObjectType
  **************************************************************/
 func WriteToParquet(object DataObjectType, s3_bucket, s3_item string) error {
@@ -19,7 +19,7 @@ func WriteToParquet(object DataObjectType, s3_bucket, s3_item string) error {
 	Debug("Preparing file s3://%v/%v", s3_bucket, s3_item)
 	Debug("Object:%v", object)
 
-	// Create temp folder	 
+	// Create temp folder
 	exec_dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		Error("Error getting executable folder: %v\n", err)
@@ -37,7 +37,7 @@ func WriteToParquet(object DataObjectType, s3_bucket, s3_item string) error {
 	}()
 	Debug("Working folder: %v", folder)
 
-	// Create Parquet File Writer	 
+	// Create Parquet File Writer
 	localParquetFilename := folder + "/" + filepath.Base(s3_item)
 	Debug("Creating NewLocalFileWriter on local temp file %v", localParquetFilename)
 	fw, err := local.NewLocalFileWriter(localParquetFilename)
@@ -56,7 +56,7 @@ func WriteToParquet(object DataObjectType, s3_bucket, s3_item string) error {
 	pw.RowGroupSize = 128 * 1024 * 1024 //128M
 	pw.CompressionType = parquet.CompressionCodec_SNAPPY
 
-	// Write data to Parquet with JSON content	 
+	// Write data to Parquet with JSON content
 	for _, element := range object {
 		if err = pw.Write(element); err != nil {
 			Error("Write error", err)
@@ -64,7 +64,7 @@ func WriteToParquet(object DataObjectType, s3_bucket, s3_item string) error {
 		}
 	}
 
-	// Stop Writer	 
+	// Stop Writer
 	if err = pw.WriteStop(); err != nil {
 		Error("WriteStop error", err)
 		return err

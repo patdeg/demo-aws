@@ -40,8 +40,8 @@ func ReadS3File(bucket, item string) ([]byte, error) {
 }
 
 /**************************************************************
-	AddFileToS3 will upload a single file to S3, it will 
-	require a pre-built aws session and will set file info 
+	AddFileToS3 will upload a single file to S3, it will
+	require a pre-built aws session and will set file info
 	like content type and encryption on the uploaded file.
  **************************************************************/
 func AddFileToS3(s3_bucket, s3_item, fileName string) error {
@@ -63,7 +63,7 @@ func AddFileToS3(s3_bucket, s3_item, fileName string) error {
 	fileInfo, _ := file.Stat()
 	var size int64 = fileInfo.Size()
 	buffer := make([]byte, size)
-	if _,err = file.Read(buffer); err != nil {
+	if _, err = file.Read(buffer); err != nil {
 		Error("Error reading file %v: %v", fileName, err)
 		return err
 	}
@@ -112,6 +112,6 @@ func CopyS3File(source_bucket, source_item, bucket, item string) error {
 		Error("Error occurred while waiting for item %v to be copied to bucket %v: %v", source_item, bucket, err)
 		return err
 	}
-	
+
 	return nil
 }
